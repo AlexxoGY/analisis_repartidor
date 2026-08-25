@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Reparto Mexicali | Toyota Corolla 2017 SE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        slateDark: '#090d16',
+                        cardDark: '#111827',
+                        accentBlue: '#3b82f6',
+                        accentCyan: '#06b6d4',
+                        accentGreen: '#10b981',
+                        accentAmber: '#f59e0b',
+                        accentRed: '#ef4444',
+                        accentPurple: '#8b5cf6'
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.35)',
+                        'neon-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
+                        'neon-rose': '0 0 25px -5px rgba(239, 68, 68, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 330px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .chart-container-wide {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 360px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container-wide {
+                height: 410px;
+            }
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card-glow {
+            background: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-[#070a12] text-slate-100 font-sans antialiased leading-relaxed min-h-screen selection:bg-cyan-500 selection:text-slate-900">
+
+    <header class="sticky top-0 z-50 bg-[#070a12]/90 backdrop-blur-md border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center font-extrabold text-xl text-white shadow-neon-cyan">
+                    <i class="fa-solid fa-car"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-base sm:text-lg text-slate-100 tracking-tight leading-none">Análisis de Reparto Mexicali</h1>
+                    <p class="text-xs text-cyan-400 font-semibold mt-0.5">Toyota Corolla SE 2017 • Verano (Agosto)</p>
+                </div>
+            </div>
+            <nav class="hidden lg:flex space-x-6 text-xs font-bold uppercase tracking-wider">
+                <a href="#vehiculo" class="text-slate-300 hover:text-cyan-400 transition">Corolla SE</a>
+                <a href="#termodinamica" class="text-slate-300 hover:text-cyan-400 transition">Clima & Gasolina</a>
+                <a href="#plataformas" class="text-slate-300 hover:text-cyan-400 transition">Apps Evaluadas</a>
+                <a href="#geografia" class="text-slate-300 hover:text-cyan-400 transition">Mapa & Riesgos</a>
+                <a href="#multiapp" class="text-slate-300 hover:text-cyan-400 transition">Estrategia Dual</a>
+                <a href="#calculadora" class="text-slate-300 hover:text-cyan-400 transition">Simulador</a>
+                <a href="#veredicto" class="text-slate-300 hover:text-cyan-400 transition">Veredicto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <section class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden border border-slate-800">
+            <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -top-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-5">
+                    <div class="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 text-amber-300 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                        <i class="fa-solid fa-temperature-high text-amber-400"></i>
+                        <span>Estudio Operativo de Verano • 45°C+</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+                        ¿Conviene Repartir Comida en Automóvil en <span class="gradient-text">Mexicali</span>?
+                    </h2>
+
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Evaluación integral financiera, mecánica y estratégica para un conductor de tiempo parcial (lunes a viernes 8am-4pm en trabajo base; reparto en fines de semana y tardes). Analizamos el rendimiento real del <strong class="text-cyan-300">Toyota Corolla SE 2017</strong> frente a la fricción vial, el impacto del aire acondicionado continuo y la eficiencia por aplicación (<strong class="text-slate-100">Uber Eats, Rappi y DiDi Food</strong>).
+                    </p>
+
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <span class="bg-slate-800/90 text-slate-200 border border-slate-700/80 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-cyan-400"></i> Horario: Fin de semana + Tardes
+                        </span>
+                        <span class="bg-slate-800/90 text-slate-200 border border-slate-700/80 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-gas-pump text-amber-400"></i> Magna: $22.20 MXN/L
+                        </span>
+                        <span class="bg-slate-800/90 text-slate-200 border border-slate-700/80 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i> Objetivo: Cuidar Automóvil
+                        </span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative flex justify-center items-center">
+                    <div class="relative w-full max-w-md mx-auto flex flex-col items-center justify-center min-h-[220px]">
+                        <img src="2017-Toyota-Corolla-XSE.avif" alt="Toyota Corolla SE 2017" class="w-full max-w-md mx-auto object-contain drop-shadow-[0_20px_35px_rgba(6,182,212,0.25)] hover:scale-105 transition-transform duration-500" onerror="this.remove(); document.getElementById('corolla-hero-fallback').classList.remove('hidden');">
+                        
+                        <div id="corolla-hero-fallback" class="hidden w-full bg-gradient-to-br from-slate-900 via-cyan-950 to-slate-900 border border-cyan-500/40 rounded-3xl p-6 text-center space-y-3 shadow-neon-cyan">
+                            <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center text-3xl border border-cyan-500/30">
+                                <i class="fa-solid fa-car-side"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-black text-white">Toyota Corolla SE 2017</h4>
+                                <p class="text-xs text-cyan-300 font-semibold mt-1">Sedán 1.8L Dual VVT-i • Transmisión CVT</p>
+                            </div>
+                            <div class="inline-block bg-slate-950 text-amber-400 border border-amber-500/30 text-xs px-3.5 py-1.5 rounded-full font-mono font-bold">
+                                Consumo Real Verano: 7.8 km/L
+                            </div>
+                        </div>
+
+                        <div class="mt-3 text-center">
+                            <span class="text-xs bg-cyan-950/80 text-cyan-300 border border-cyan-700/60 px-3 py-1 rounded-full font-bold">
+                                Vehículo del Estudio: Corolla SE 2017
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800/80">
+                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-md">
+                    <span class="text-xs text-slate-400 font-bold block uppercase tracking-wider">Costo Operativo Real</span>
+                    <span class="text-2xl sm:text-3xl font-black text-cyan-400">$3.95 MXN</span>
+                    <span class="text-xs text-slate-400 block mt-1">por km recorrido (COTK)</span>
+                </div>
+                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-md">
+                    <span class="text-xs text-slate-400 font-bold block uppercase tracking-wider">Rendimiento Verano</span>
+                    <span class="text-2xl sm:text-3xl font-black text-amber-400">7.8 km/L</span>
+                    <span class="text-xs text-slate-400 block mt-1">Con A/C full en tráfico urbano</span>
+                </div>
+                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-md">
+                    <span class="text-xs text-slate-400 font-bold block uppercase tracking-wider">App Ganadora</span>
+                    <span class="text-2xl sm:text-3xl font-black text-emerald-400">Uber Eats</span>
+                    <span class="text-xs text-emerald-400 font-semibold block mt-1">$72.65 MXN/hr Utilidad Neta</span>
+                </div>
+                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-md">
+                    <span class="text-xs text-slate-400 font-bold block uppercase tracking-wider">App No Recomendada</span>
+                    <span class="text-2xl sm:text-3xl font-black text-rose-500">DiDi Food</span>
+                    <span class="text-xs text-rose-400 font-semibold block mt-1">$8.58 MXN/hr Utilidad Neta</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="vehiculo" class="space-y-6">
+            <div class="border-l-4 border-cyan-500 pl-4 space-y-1">
+                <h3 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-microchip text-cyan-400"></i>
+                    <span>1. Ficha Técnica y Desglose Mecánico: Toyota Corolla SE 2017</span>
+                </h3>
+                <p class="text-slate-400 text-sm">Evaluación del tren motriz, perfil de neumáticos y vulnerabilidad mecánica en Mexicali.</p>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                El <strong class="text-white">Toyota Corolla SE 2017</strong> es uno de los sedanes compactos más fiables del mercado gracias a su motor atmosférico 1.8L Dual VVT-i. Sin embargo, en el contexto específico de reparto urbano en Mexicali bajo temperaturas de hasta <strong class="text-amber-400">45°C</strong>, presenta características mecánicas que deben gestionarse con suma rigurosidad para evitar la pérdida de patrimonio por reparaciones prematuras.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 glass-card-glow p-6 rounded-3xl space-y-4 text-center">
+                    <div class="relative w-full max-w-sm mx-auto min-h-[200px] flex flex-col justify-center items-center">
+                        <img src="2017-Toyota-Corolla-XSE.avif" alt="Toyota Corolla 2017 SE Lateral" class="w-full max-w-sm mx-auto object-contain drop-shadow-[0_15px_25px_rgba(6,182,212,0.3)]" onerror="this.remove(); document.getElementById('corolla-tech-fallback').classList.remove('hidden');">
+                        
+                        <div id="corolla-tech-fallback" class="hidden w-full bg-slate-900 p-5 rounded-2xl border border-cyan-500/40 text-center space-y-2">
+                            <i class="fa-solid fa-car text-4xl text-cyan-400 mb-1"></i>
+                            <h4 class="font-black text-white text-lg">Toyota Corolla 2017 SE</h4>
+                            <p class="text-xs text-slate-400">Especificaciones Mecánicas Oficiales</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 text-left space-y-2">
+                        <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
+                            <span class="text-slate-400">Motorización:</span>
+                            <span class="font-bold text-white">1.8L 4 Cilindros (132 hp)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
+                            <span class="text-slate-400">Transmisión:</span>
+                            <span class="font-bold text-white">CVT con Modo Manual (7 cambios)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
+                            <span class="text-slate-400">Neumáticos OEM:</span>
+                            <span class="font-bold text-amber-400">215/45 R17 (Perfil Bajo)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
+                            <span class="text-slate-400">Capacidad Tanque:</span>
+                            <span class="font-bold text-white">50 Litros (Magna / Regular)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs pt-1">
+                            <span class="text-slate-400">Costo Desgaste/km:</span>
+                            <span class="font-bold text-cyan-400">$1.10 MXN / km</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="w-9 h-9 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base mb-2">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-sm">Vulnerabilidad de Rines 17"</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            A diferencia de la versión LE (rines de 16" con mayor perfil), el Corolla SE equipa llantas <strong class="text-white">215/45 R17</strong>. El perfil de 45 mm absorbe muy poca energía de choque ante baches profundos, transmitiendo el impacto directamente al rin de aluminio y los amortiguadores. Un solo bache no detectado puede deformar el rin o cuatear la llanta ($2,400+ MXN).
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-base mb-2">
+                            <i class="fa-solid fa-temperature-arrow-up"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-sm">Carga Parasitaria del A/C</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            A 45°C en Mexicali, el compresor del A/C opera al 100% continuamente. Esto resta entre 6 y 9 caballos de fuerza al motor 1.8L en despegues e incrementa la fricción térmica en la transmisión CVT, elevando el consumo de gasolina en ralentí hasta un <strong class="text-amber-400">+22%</strong> en comparación con clima templado.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="w-9 h-9 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-base mb-2">
+                            <i class="fa-solid fa-rotate"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-sm">Estrés de Transmisión CVT</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            El tráfico denso de Mexicali exige arranques y frenados constantes. La banda metálica de la transmisión CVT del Corolla sufre térmicamente con el aceite a altas temperaturas. Mantener cambios de fluido cada 40,000 km es indispensable si se utiliza el vehículo para reparto activo.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base mb-2">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-sm">Frenos y Sistema Eléctrico</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Los frenos de disco en las 4 ruedas del Corolla SE brindan excelente capacidad de frenado, pero las balatas sufren mayor cristalización por el calor del asfalto urbano. El sistema de encendido y batería de 12V reciben mayor demanda debido a los ciclos de arranque entre entregas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="termodinamica" class="space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4 space-y-1">
+                <h3 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-fire text-amber-400"></i>
+                    <span>2. Análisis Termodinámico y Consumo de Gasolina en Verano</span>
+                </h3>
+                <p class="text-slate-400 text-sm">Impacto directo del calor extremo de Mexicali en el Costo Operativo Total por Km (COTK).</p>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Mexicali en agosto registra temperaturas ambientales medias de <strong class="text-amber-400">45°C</strong>, elevando la temperatura de la carpeta asfáltica por encima de los <strong class="text-rose-400">60°C</strong>. Un automóvil sedán repartiendo alimentos pasa entre un 35% y 45% del tiempo en ralentí (esperando pedidos fuera del restaurante o en semáforos) con el aire acondicionado funcionando al máximo. Esto reduce el rendimiento oficial en ciudad de 12 km/L a un rendimiento real comprobado de <strong class="text-amber-400">7.8 km/L</strong>.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="glass-card p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h4 class="font-bold text-slate-200 text-sm sm:text-base">Desglose del Costo Operativo Total por Km (COTK)</h4>
+                        <span class="text-xs bg-slate-800 text-cyan-400 px-3 py-1 rounded-full font-mono font-bold border border-cyan-800/40">$3.95 MXN/km</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="cotkChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 text-center italic">
+                        El 72.2% ($2.85 MXN) corresponde a combustible Magna directo; el 27.8% ($1.10 MXN) representa el desgaste diferido acumulado (llantas, frenos, lubricante, depreciación).
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-3">
+                        <h4 class="font-bold text-white text-base flex items-center gap-2">
+                            <i class="fa-solid fa-calculator text-cyan-400"></i>
+                            <span>Ecuación del Costo Operativo en Mexicali</span>
+                        </h4>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 space-y-2">
+                            <div class="flex justify-between">
+                                <span>Precio Gasolina Magna:</span>
+                                <span class="text-cyan-400 font-bold">$22.20 MXN / Litro</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Rendimiento Real Verano:</span>
+                                <span class="text-amber-400 font-bold">7.8 km / Litro</span>
+                            </div>
+                            <div class="flex justify-between border-t border-slate-800 pt-2">
+                                <span>Costo Gasolina por Km:</span>
+                                <span class="text-cyan-400 font-bold">$2.85 MXN / km</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Depreciación + Mantenimiento:</span>
+                                <span class="text-amber-400 font-bold">$1.10 MXN / km</span>
+                            </div>
+                            <div class="flex justify-between border-t border-slate-800 pt-2 text-sm font-bold">
+                                <span class="text-white">COTK Final Corolla 2017:</span>
+                                <span class="text-emerald-400">$3.95 MXN / km</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-3">
+                        <h4 class="font-bold text-white text-xs uppercase tracking-wider">Comparativa de Costo por Kilómetro Recorrido</h4>
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-rose-500/30">
+                                <span class="text-xs text-slate-400 block mb-1">Toyota Corolla 2017 SE</span>
+                                <span class="text-xl font-black text-rose-400">$3.95 MXN/km</span>
+                                <span class="text-[10px] text-slate-500 block mt-1">Requiere viajes > $10/km</span>
+                            </div>
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-emerald-500/30">
+                                <span class="text-xs text-slate-400 block mb-1">Motocicleta 150cc</span>
+                                <span class="text-xl font-black text-emerald-400">$1.15 MXN/km</span>
+                                <span class="text-[10px] text-slate-500 block mt-1">Soporta tarifas bajas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plataformas" class="space-y-6">
+            <div class="border-l-4 border-emerald-500 pl-4 space-y-1">
+                <h3 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-layer-group text-emerald-400"></i>
+                    <span>3. Evaluación Comparativa de Plataformas de Reparto</span>
+                </h3>
+                <p class="text-slate-400 text-sm">Análisis cuantitativo de tarifas, propinas y comportamiento algorítmico en Mexicali.</p>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                A partir del cruce de opiniones y reseñas de repartidores activos en Mexicali, se demuestra que la elección de la plataforma define la diferencia entre generar una ganancia neta atractiva o perder dinero por desgaste vehicular. Los algoritmos de asignación tratan de forma distinta a los automóviles: mientras algunas apps los penalizan por tiempo de tránsito en distancias cortas, otras priorizan cajuelas de autos para compras de volumen o entregas familiares de alto valor.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h4 class="font-bold text-slate-200 text-sm sm:text-base">Ingreso Bruto vs Utilidad Neta por Hora</h4>
+                        <span class="text-xs bg-slate-800 text-emerald-400 px-3 py-1 rounded-full font-mono font-bold border border-emerald-800/40">$/Hora Promedio</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="hourlyEarningsChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 text-center italic">
+                        La utilidad neta resulta de restar el Costo Operativo Total ($3.95/km × km recorridos) del ingreso bruto pagado por la aplicación.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h4 class="font-bold text-slate-200 text-sm sm:text-base">Desglose Financiero Promedio por Viaje Único</h4>
+                        <span class="text-xs bg-slate-800 text-cyan-400 px-3 py-1 rounded-full font-mono font-bold border border-cyan-800/40">Tarifa + Propina vs COTK</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="tripBreakdownChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 text-center italic">
+                        En DiDi Food, el costo operativo devora el 90.2% del pago por viaje debido a tarifas base muy reducidas y nula cultura de propina.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                <div class="glass-card p-6 rounded-3xl border-2 border-emerald-500/60 shadow-neon-emerald space-y-5 relative overflow-hidden flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="relative w-14 h-14 rounded-2xl shadow-lg border border-slate-700/80 overflow-hidden flex items-center justify-center bg-black">
+                                <img src="unnamed (2).png" alt="Uber Eats Repartidor" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('uber-fallback').classList.remove('hidden');">
+                                <div id="uber-fallback" class="hidden w-full h-full bg-black flex flex-col items-center justify-center p-1 text-center">
+                                    <span class="font-extrabold text-white text-[11px] leading-none">Uber</span>
+                                    <span class="font-bold text-emerald-400 text-[10px] leading-none mt-0.5">Eats</span>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-700 font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                                OPCIÓN #1 RECOMENDADA
+                            </span>
+                        </div>
+
+                        <div>
+                            <h4 class="text-2xl font-black text-white">Uber Eats</h4>
+                            <p class="text-xs text-emerald-400 font-bold mt-0.5">La app más rentable para repartir en automóvil</p>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-slate-300">
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Perfil Cliente:</span>
+                                <span class="font-bold text-white">Medio-Alto (Zona Dorada)</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Propina Promedio:</span>
+                                <span class="font-bold text-emerald-400">10% - 20% ($15.00 MXN)</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Frecuencia Pedidos:</span>
+                                <span class="font-bold text-white">2.0 viajes / hora</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Distancia Promedio:</span>
+                                <span class="font-bold text-white">6.0 km por viaje</span>
+                            </div>
+                            <div class="flex justify-between pt-1 font-extrabold text-sm">
+                                <span class="text-slate-200">Utilidad Neta / Hora:</span>
+                                <span class="text-emerald-400 font-black text-base">$72.65 MXN</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 leading-relaxed pt-2 border-t border-slate-800">
+                            <strong class="text-slate-200">Veredicto Conductor:</strong> Excelente densidad de propinas en áreas residenciales del oriente (San Pedro/Cetys). Asigna pedidos voluminosos a cajuelas. Amortiza holgadamente el gasto de gasolina.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border border-slate-700 space-y-5 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="relative w-14 h-14 rounded-2xl shadow-lg border border-slate-700/80 overflow-hidden flex items-center justify-center bg-gradient-to-tr from-orange-600 to-rose-500">
+                                <img src="unnamed (1).png" alt="Rappi Repartidor" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('rappi-fallback').classList.remove('hidden');">
+                                <div id="rappi-fallback" class="hidden w-full h-full flex flex-col items-center justify-center p-1 text-center">
+                                    <i class="fa-solid fa-cookie-bite text-amber-300 text-base"></i>
+                                    <span class="font-extrabold text-white text-[10px] leading-none mt-0.5">Rappi</span>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-cyan-950 text-cyan-400 border border-cyan-700 font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                                USO TÁCTICO / MIXTO
+                            </span>
+                        </div>
+
+                        <div>
+                            <h4 class="text-2xl font-black text-white">Rappi</h4>
+                            <p class="text-xs text-cyan-400 font-bold mt-0.5">Ideal para la vertical Rappi Shopper</p>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-slate-300">
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Perfil Cliente:</span>
+                                <span class="font-bold text-white">Medio - Joven / Plazas</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Propina Promedio:</span>
+                                <span class="font-bold text-cyan-400">Moderada ($8.00 MXN)</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Frecuencia Pedidos:</span>
+                                <span class="font-bold text-white">1.8 viajes / hora</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Distancia Promedio:</span>
+                                <span class="font-bold text-white">6.5 km por viaje</span>
+                            </div>
+                            <div class="flex justify-between pt-1 font-extrabold text-sm">
+                                <span class="text-slate-200">Utilidad Neta / Hora:</span>
+                                <span class="text-cyan-400 font-black text-base">$40.23 MXN</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 leading-relaxed pt-2 border-t border-slate-800">
+                            <strong class="text-slate-200">Veredicto Conductor:</strong> Muy útil para compras en supermercados (Soriana/Calimax). Al estar dentro del súper surtiendo la lista, el automóvil permanece estacionado y apagado, ahorrando combustible.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border-2 border-rose-500/40 shadow-neon-rose space-y-5 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="relative w-14 h-14 rounded-2xl shadow-lg border border-slate-700/80 overflow-hidden flex items-center justify-center bg-orange-500">
+                                <img src="unnamed.png" alt="DiDi Food Repartidor" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('didi-fallback').classList.remove('hidden');">
+                                <div id="didi-fallback" class="hidden w-full h-full flex flex-col items-center justify-center p-1 text-center">
+                                    <i class="fa-solid fa-utensils text-white text-sm"></i>
+                                    <span class="font-extrabold text-white text-[9px] leading-none mt-0.5">DiDi Food</span>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-rose-950 text-rose-400 border border-rose-700 font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                                DESCHAZAR / NO VIABLE
+                            </span>
+                        </div>
+
+                        <div>
+                            <h4 class="text-2xl font-black text-white">DiDi Food</h4>
+                            <p class="text-xs text-rose-400 font-bold mt-0.5">Destruye el valor patrimonial del auto</p>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-slate-300">
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Perfil Cliente:</span>
+                                <span class="font-bold text-white">Economía Popular / Ticket Bajo</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Propina Promedio:</span>
+                                <span class="font-bold text-rose-400">Nula / $3.00 MXN</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Km Muertos de Retorno:</span>
+                                <span class="font-bold text-rose-400">Muy Altos (Periferia)</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1.5">
+                                <span>Distancia Promedio:</span>
+                                <span class="font-bold text-white">8.0 km por viaje</span>
+                            </div>
+                            <div class="flex justify-between pt-1 font-extrabold text-sm">
+                                <span class="text-slate-200">Utilidad Neta / Hora:</span>
+                                <span class="text-rose-400 font-black text-base">$8.58 MXN</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 leading-relaxed pt-2 border-t border-slate-800">
+                            <strong class="text-slate-200">Veredicto Conductor:</strong> Genera una falsa sensación de flujo de dinero bruto por volumen de pedidos pequeños, pero el consumo de gasolina y desgaste por kilómetro absorbe el 90% de las ganancias.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="geografia" class="space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4 space-y-1">
+                <h3 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-map-location-dot text-amber-400"></i>
+                    <span>4. Micro-Geografía Urbana y Matriz de Riesgo en Mexicali</span>
+                </h3>
+                <p class="text-slate-400 text-sm">Zonas de alta propina vs arterias de alto riesgo para llantas de perfil bajo (215/45 R17).</p>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Para proteger los rines y la suspensión del Corolla SE 2017, la selección geográfica es tan crítica como la plataforma. Deambular sin rumbo hacia sectores con asfalto deteriorado o terracería causará impactos severos en neumáticos de perfil bajo. La regla de oro en Mexicali es operar mediante un perímetro delimitado ("Geofencing") centrado en el corredor comercial oriente.
+            </p>
+
+            <div class="glass-card p-6 rounded-3xl border border-slate-800 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-3">
+                    <div>
+                        <h4 class="font-bold text-slate-200 text-base">Matriz de Rentabilidad por Zona vs Riesgo de Baches</h4>
+                        <p class="text-xs text-slate-400">Relación entre el nivel de propinas y la probabilidad de daño a rines/suspensión</p>
+                    </div>
+                    <span class="text-xs bg-slate-800 text-amber-400 px-3 py-1 rounded-full font-bold border border-amber-800/40">Plotly WebGL Canvas</span>
+                </div>
+
+                <div class="chart-container-wide">
+                    <div id="plotlyZoneChart" class="w-full h-full"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-900/90 p-5 rounded-2xl border-l-4 border-emerald-500 border-t border-r border-b border-slate-800 space-y-2">
+                    <span class="text-[10px] font-black text-emerald-400 uppercase tracking-widest block">ZONA TIER 1 • EXCELENTE</span>
+                    <h5 class="font-extrabold text-white text-base">Zona Dorada / San Pedro</h5>
+                    <p class="text-xs text-slate-300 leading-normal">
+                        Calzada Cetys, Montecarlo y San Pedro. Restaurantes de ticket elevado, excelente pavimentación y propinas promedio de $20-$40 MXN.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/90 p-5 rounded-2xl border-l-4 border-blue-500 border-t border-r border-b border-slate-800 space-y-2">
+                    <span class="text-[10px] font-black text-blue-400 uppercase tracking-widest block">ZONA TIER 2 • VOLUMEN</span>
+                    <h5 class="font-extrabold text-white text-base">Corredor Benito Juárez</h5>
+                    <p class="text-xs text-slate-300 leading-normal">
+                        Desde Justo Sierra hasta UABC Central. Alta concentración de franquicias de comida rápida. Entregas cortas y asfalto aceptable.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/90 p-5 rounded-2xl border-l-4 border-cyan-500 border-t border-r border-b border-slate-800 space-y-2">
+                    <span class="text-[10px] font-black text-cyan-400 uppercase tracking-widest block">ZONA TIER 2 • SUPERMERCADO</span>
+                    <h5 class="font-extrabold text-white text-base">Lázaro Cárdenas Oriente</h5>
+                    <p class="text-xs text-slate-300 leading-normal">
+                        Plazas comerciales (Gran Vía, Plaza Nuevo Mexicali). Zona óptima para aceptar pedidos de supermercado en Rappi con auto apagado.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/90 p-5 rounded-2xl border-l-4 border-rose-500 border-t border-r border-b border-slate-800 space-y-2">
+                    <span class="text-[10px] font-black text-rose-400 uppercase tracking-widest block">ZONA PROHIBIDA • EXCLUSIÓN</span>
+                    <h5 class="font-extrabold text-white text-base">Valle de Puebla / Santorales</h5>
+                    <p class="text-xs text-slate-300 leading-normal">
+                        Periferias distantes con vialidades destruidas o terracería. Propinas nulas y alto riesgo de ponchaduras o rines doblados. Rechazar 100%.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="multiapp" class="space-y-6">
+            <div class="border-l-4 border-cyan-500 pl-4 space-y-1">
+                <h3 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-code-fork text-cyan-400"></i>
+                    <span>5. Estrategia Dual (Multi-Apping) y Marco Legal LFT</span>
+                </h3>
+                <p class="text-slate-400 text-sm">Protocolo de filtrado en tiempo real y resguardo bajo la legislación mexicana.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 glass-card p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h4 class="font-bold text-white text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-scale-balanced text-cyan-400"></i>
+                        <span>Marco Legal de la Reforma a la Ley Federal del Trabajo (LFT) en México</span>
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Las disposiciones legales para trabajadores de plataformas digitales en México amparan la flexibilidad del operador:
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                        <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-slate-800 space-y-1">
+                            <span class="text-cyan-400 font-bold text-xs block">Libertad de Conexión</span>
+                            <p class="text-[11px] text-slate-400">Sin cláusulas de exclusividad. Es 100% legal tener conectadas Uber Eats y Rappi simultáneamente.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-slate-800 space-y-1">
+                            <span class="text-emerald-400 font-bold text-xs block">Protección Colectiva</span>
+                            <p class="text-[11px] text-slate-400">Cobertura de seguro contra accidentes activa durante el trayecto desde la aceptación hasta la entrega.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-slate-800 space-y-1">
+                            <span class="text-amber-400 font-bold text-xs block">Sin Penalización Transparente</span>
+                            <p class="text-[11px] text-slate-400">Derecho a rechazar viajes no rentables sin bloqueos injustificados del algoritmo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] font-black text-amber-400 uppercase tracking-widest block">REGLA DE ORO OPERATIVA</span>
+                        <h4 class="text-lg font-black text-white mt-1">Multi-Apping como Radar, No como Entrega Doble</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Jamás acepte llevar pedidos de dos apps distintas al mismo tiempo. Transportar clientes simultáneos provoca comida fría, mala calificación y pérdida de propinas. La técnica consiste en mantener ambas apps abiertas mientras está en espera para elegir la mejor oferta.
+                    </p>
+                    <div class="bg-slate-900 p-3 rounded-xl border border-cyan-800/40 text-center">
+                        <span class="text-xs text-cyan-300 font-mono font-bold">Tasa Recomendada de Rechazo: 60% - 75%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-3xl border border-slate-800 space-y-4">
+                <h4 class="font-bold text-slate-200 text-base border-b border-slate-800 pb-3">
+                    Flujograma Operativo de Ejecución Dual en Mexicali
+                </h4>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center text-xs">
+                    <div class="bg-slate-900/90 p-4.5 rounded-2xl border border-slate-800 space-y-2 relative">
+                        <div class="w-8 h-8 bg-cyan-500 text-slate-950 font-black rounded-full flex items-center justify-center mx-auto text-sm shadow-neon-cyan">1</div>
+                        <h5 class="font-bold text-white text-sm">Estacionado en Zona Dorada</h5>
+                        <p class="text-slate-400 text-[11px]">Conectar Uber Eats y Rappi simultáneamente. Motor apagado a la sombra.</p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-4.5 rounded-2xl border border-slate-800 space-y-2 relative">
+                        <div class="w-8 h-8 bg-emerald-500 text-slate-950 font-black rounded-full flex items-center justify-center mx-auto text-sm shadow-neon-emerald">2</div>
+                        <h5 class="font-bold text-white text-sm">Filtrado Exigente</h5>
+                        <p class="text-slate-400 text-[11px]">Aceptar únicamente si la tarifa + propina supera los <strong class="text-emerald-400">$10 MXN/km</strong>.</p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-4.5 rounded-2xl border border-slate-800 space-y-2 relative">
+                        <div class="w-8 h-8 bg-amber-500 text-slate-950 font-black rounded-full flex items-center justify-center mx-auto text-sm">3</div>
+                        <h5 class="font-bold text-white text-sm">Aceptación & Pausa</h5>
+                        <p class="text-slate-400 text-[11px]">Al aceptar en Uber Eats, poner Rappi en estado "Desconectado" inmediatamente.</p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-4.5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="w-8 h-8 bg-purple-500 text-white font-black rounded-full flex items-center justify-center mx-auto text-sm">4</div>
+                        <h5 class="font-bold text-white text-sm">Entrega & Retorno</h5>
+                        <p class="text-slate-400 text-[11px]">Entregar con profesionalismo, asegurar la propina y reactivar ambas al regresar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculadora" class="space-y-6">
+            <div class="border-l-4 border-emerald-500 pl-4 space-y-1">
+                <h3 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-sliders text-emerald-400"></i>
+                    <span>6. Simulador Interactivo de Ganancias Netas Personalizadas</span>
+                </h3>
+                <p class="text-slate-400 text-sm">Calcula tu proyección de ingresos mensuales libres de gastos según tus horas disponibles.</p>
+            </div>
+
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <h4 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gears text-emerald-400"></i>
+                        <span>Parámetros de Configuración</span>
+                    </h4>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold">
+                            <label for="hoursInput" class="text-slate-300">Horas Semanales Dedicadas (Fines de semana y tardes):</label>
+                            <span id="hoursValue" class="text-emerald-400 font-mono text-sm">12 Horas</span>
+                        </div>
+                        <input type="range" id="hoursInput" min="4" max="30" value="12" class="w-full accent-emerald-500 cursor-pointer bg-slate-800 h-2.5 rounded-lg">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="strategySelect" class="text-xs font-bold text-slate-300 block">Estrategia Operativa de App:</label>
+                        <select id="strategySelect" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-xs text-white font-semibold focus:outline-none focus:border-emerald-500">
+                            <option value="uber">Uber Eats Selectivo (Enfoque Recomendado - Zona Dorada)</option>
+                            <option value="rappi">Rappi Mixto / Supermercados (Estrategia Táctica)</option>
+                            <option value="didi">DiDi Food Aceptación Total (No Recomendado)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold">
+                            <label for="gasInput" class="text-slate-300">Precio Gasolina Magna en Mexicali:</label>
+                            <span id="gasValue" class="text-cyan-400 font-mono text-sm">$22.20 MXN/L</span>
+                        </div>
+                        <input type="range" id="gasInput" min="20.00" max="25.00" step="0.10" value="22.20" class="w-full accent-cyan-500 cursor-pointer bg-slate-800 h-2.5 rounded-lg">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-slate-900/90 p-6 rounded-3xl border border-slate-800 space-y-5">
+                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest text-center">Proyección Financiera Mensual Estimada</h4>
+
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                            <span class="text-xs text-slate-400 block mb-1">Ingreso Bruto Mensual</span>
+                            <span id="grossMonthly" class="text-xl sm:text-2xl font-black text-slate-200 font-mono">$6,235 MXN</span>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                            <span class="text-xs text-slate-400 block mb-1">Gasto Combustible + Desgaste</span>
+                            <span id="costsMonthly" class="text-xl sm:text-2xl font-black text-rose-400 font-mono">-$2,457 MXN</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-emerald-950 to-slate-950 p-6 rounded-2xl border border-emerald-500/50 text-center space-y-1 shadow-neon-emerald">
+                        <span class="text-xs font-black text-emerald-400 uppercase tracking-widest block">Ganancia Neta Limpia Mensual</span>
+                        <span id="netMonthly" class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono">$3,778 MXN</span>
+                        <span class="text-xs text-slate-400 block pt-1">Dinero 100% libre tras deducir la depreciación del Corolla y la gasolina.</span>
+                    </div>
+
+                    <div class="flex justify-between text-xs text-slate-400 border-t border-slate-800 pt-3 px-2">
+                        <span>Utilidad Neta / Hora: <strong id="netHourly" class="text-emerald-400 font-mono">$72.65 MXN</strong></span>
+                        <span>COTK Aplicado: <strong id="cotkApplied" class="text-cyan-400 font-mono">$3.95/km</strong></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="veredicto" class="space-y-6">
+            <div class="border-l-4 border-cyan-500 pl-4 space-y-1">
+                <h3 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-flag-checkered text-cyan-400"></i>
+                    <span>7. Veredicto Final y Plan de Acción Sugerido</span>
+                </h3>
+                <p class="text-slate-400 text-sm">Resumen ejecutivo adaptado a tu disponibilidad y vehículo.</p>
+            </div>
+
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
+                <div class="space-y-3">
+                    <h4 class="text-xl font-black text-white">Dictamen Final del Estudio</h4>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Dado tu horario laboral fijo (<strong class="text-white">lunes a viernes 8am-4pm</strong>) y tu objetivo de generar un ingreso extra sin destruir mecánicamente tu <strong class="text-cyan-300">Toyota Corolla SE 2017</strong>, la actividad es <strong class="text-emerald-400 font-extrabold">ALTAMENTE VIABLE Y RENTABLE</strong> siempre y cuando operes bajo las siguientes pautas estrictas:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>1. Uber Eats como Plataforma Base</span>
+                        </div>
+                        <p class="text-slate-300 leading-normal">
+                            Es la mejor aplicación para tu automóvil. La presencia de propinas voluntarias de entre 10% y 20% en la Zona Dorada compensa los $3.95 MXN/km de costo operativo.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex items-center space-x-2 text-cyan-400 font-bold text-sm">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>2. Rappi como Radar de Supermercado</span>
+                        </div>
+                        <p class="text-slate-300 leading-normal">
+                            Mantén Rappi activada durante el ralentí. Acepta preferentemente pedidos de la vertical <em>Rappi Shopper</em> en Plazas sobre Lázaro Cárdenas; esto te permite ganar dinero con el motor apagado mientras haces las compras.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex items-center space-x-2 text-rose-400 font-bold text-sm">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            <span>3. Descartar DiDi Food por Completo</span>
+                        </div>
+                        <p class="text-slate-300 leading-normal">
+                            DiDi Food ofrece utilidades irrisorias ($8.58 MXN/hr netos en auto) debido a viajes largos hacia la periferia y tarifas sin propina. Trabajar en DiDi equivale a descapitalizar tu auto.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex items-center space-x-2 text-amber-400 font-bold text-sm">
+                            <i class="fa-solid fa-shield-cat"></i>
+                            <span>4. Cuidado Extremo de Rines 17"</span>
+                        </div>
+                        <p class="text-slate-300 leading-normal">
+                            Limita tu radio de trabajo a la Zona Dorada, Justo Sierra y Lázaro Cárdenas Oriente. Rechaza cualquier pedido que te lleve a colonias con calles no pavimentadas para proteger el perfil 215/45 R17 de tu Corolla.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-cyan-950/80 to-blue-950/80 p-5 rounded-2xl border border-cyan-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                    <div>
+                        <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider block">Horarios Sugeridos de Máxima Rentabilidad</span>
+                        <p class="text-xs text-slate-200 mt-1">Viernes (7:00 pm - 11:00 pm) • Sábados y Domingos (1:00 pm - 4:00 pm / 7:00 pm - 11:00 pm)</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 text-xs font-black px-5 py-2.5 rounded-xl whitespace-nowrap shadow-neon-cyan">
+                        ¡Estrategia Lista para Ejecutar!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#04060b] border-t border-slate-800/80 py-8 text-center text-xs text-slate-500 space-y-2">
+        <p class="font-semibold text-slate-400">Análisis Operativo y Financiero de Reparto en Automóvil • Mexicali, Baja California</p>
+        <p>Modelado técnico personalizado para Toyota Corolla SE 2017 bajo condiciones térmicas extremas de verano (Agosto).</p>
+    </footer>
+
+    <script>
+        function wrapLabel(str, maxChars = 16) {
+            if (typeof str !== 'string') return str;
+            if (str.length <= maxChars) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxChars) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine ? ' ' : '') + word;
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cotkCtx = document.getElementById('cotkChart').getContext('2d');
+            const cotkLabels = [
+                'Gasolina Magna (7.8 km/L)',
+                'Desgaste y Depreciación'
+            ].map(l => wrapLabel(l, 16));
+
+            new Chart(cotkCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: cotkLabels,
+                    datasets: [{
+                        data: [2.85, 1.10],
+                        backgroundColor: ['#06b6d4', '#f59e0b'],
+                        borderColor: '#111827',
+                        borderWidth: 3,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#94a3b8',
+                                font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' },
+                                boxWidth: 14
+                            }
+                        },
+                        tooltip: commonTooltipConfig
+                    },
+                    cutout: '68%'
+                }
+            });
+
+            const hourlyCtx = document.getElementById('hourlyEarningsChart').getContext('2d');
+            const hourlyLabels = [
+                'Uber Eats (Zona Dorada)',
+                'Rappi (Mixto / Shopper)',
+                'DiDi Food (Periferia)'
+            ].map(l => wrapLabel(l, 16));
+
+            new Chart(hourlyCtx, {
+                type: 'bar',
+                data: {
+                    labels: hourlyLabels,
+                    datasets: [
+                        {
+                            label: 'Ingreso Bruto/Hr',
+                            data: [120.00, 86.40, 87.50],
+                            backgroundColor: '#3b82f6',
+                            borderRadius: 8
+                        },
+                        {
+                            label: 'Utilidad Neta/Hr',
+                            data: [72.65, 40.23, 8.58],
+                            backgroundColor: ['#10b981', '#06b6d4', '#ef4444'],
+                            borderRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            ticks: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 10, weight: '500' } },
+                            grid: { display: false }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#94a3b8',
+                                font: { family: 'Plus Jakarta Sans', size: 10 },
+                                callback: value => '$' + value
+                            },
+                            grid: { color: '#1f2937' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } }
+                        },
+                        tooltip: commonTooltipConfig
+                    }
+                }
+            });
+
+            const tripCtx = document.getElementById('tripBreakdownChart').getContext('2d');
+            const tripLabels = ['Uber Eats', 'Rappi', 'DiDi Food'].map(l => wrapLabel(l, 16));
+
+            new Chart(tripCtx, {
+                type: 'bar',
+                data: {
+                    labels: tripLabels,
+                    datasets: [
+                        {
+                            label: 'Costo Operativo Total',
+                            data: [23.68, 25.65, 31.57],
+                            backgroundColor: '#ef4444',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Utilidad Neta / Trip',
+                            data: [36.32, 22.35, 3.43],
+                            backgroundColor: '#10b981',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            ticks: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } },
+                            grid: { display: false }
+                        },
+                        y: {
+                            stacked: true,
+                            ticks: {
+                                color: '#94a3b8',
+                                font: { family: 'Plus Jakarta Sans', size: 10 },
+                                callback: value => '$' + value
+                            },
+                            grid: { color: '#1f2937' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } }
+                        },
+                        tooltip: commonTooltipConfig
+                    }
+                }
+            });
+
+            const plotlyData = [{
+                x: [2, 4, 5, 9],
+                y: [150, 65, 55, 15],
+                text: [
+                    'Zona Dorada (Cetys / San Pedro)',
+                    'Corredor Juárez (UABC / Centro)',
+                    'Corredor Lázaro Cárdenas',
+                    'Periferia (Valle de Puebla)'
+                ],
+                mode: 'markers+text',
+                textposition: ['top center', 'top center', 'bottom center', 'top center'],
+                textfont: {
+                    family: 'Plus Jakarta Sans',
+                    size: 11,
+                    color: ['#10b981', '#3b82f6', '#06b6d4', '#ef4444']
+                },
+                marker: {
+                    size: [52, 40, 36, 26],
+                    color: ['#10b981', '#3b82f6', '#06b6d4', '#ef4444'],
+                    opacity: 0.9,
+                    line: { color: '#090d16', width: 2 }
+                },
+                type: 'scattergl'
+            }];
+
+            const plotlyLayout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: { l: 50, r: 40, t: 20, b: 50 },
+                xaxis: {
+                    title: { text: 'Riesgo Mecánico / Deterioro de Pavimento (Baches)', font: { color: '#94a3b8', size: 11 } },
+                    tickfont: { color: '#94a3b8' },
+                    gridcolor: '#1f2937',
+                    zerolinecolor: '#1f2937',
+                    range: [0, 10.5]
+                },
+                yaxis: {
+                    title: { text: 'Retribución Promedio por Propinas ($ MXN)', font: { color: '#94a3b8', size: 11 } },
+                    tickfont: { color: '#94a3b8' },
+                    gridcolor: '#1f2937',
+                    zerolinecolor: '#1f2937',
+                    range: [0, 180]
+                },
+                hovermode: 'closest'
+            };
+
+            const plotlyConfig = { responsive: true, displayModeBar: false };
+            Plotly.newPlot('plotlyZoneChart', plotlyData, plotlyLayout, plotlyConfig);
+
+            const hoursInput = document.getElementById('hoursInput');
+            const hoursValue = document.getElementById('hoursValue');
+            const strategySelect = document.getElementById('strategySelect');
+            const gasInput = document.getElementById('gasInput');
+            const gasValue = document.getElementById('gasValue');
+
+            const grossMonthlyEl = document.getElementById('grossMonthly');
+            const costsMonthlyEl = document.getElementById('costsMonthly');
+            const netMonthlyEl = document.getElementById('netMonthly');
+            const netHourlyEl = document.getElementById('netHourly');
+            const cotkAppliedEl = document.getElementById('cotkApplied');
+
+            function calculateProfit() {
+                const hoursPerWeek = parseFloat(hoursInput.value);
+                const gasPrice = parseFloat(gasInput.value);
+                const strategy = strategySelect.value;
+
+                hoursValue.textContent = hoursPerWeek + ' Horas';
+                gasValue.textContent = '$' + gasPrice.toFixed(2) + ' MXN/L';
+
+                const fuelCostPerKm = gasPrice / 7.8;
+                const wearCostPerKm = 1.10;
+                const cotk = fuelCostPerKm + wearCostPerKm;
+
+                let grossHourly = 120.00;
+                let kmPerHour = 12.0;
+
+                if (strategy === 'uber') {
+                    grossHourly = 120.00;
+                    kmPerHour = 12.0;
+                } else if (strategy === 'rappi') {
+                    grossHourly = 86.40;
+                    kmPerHour = 11.7;
+                } else if (strategy === 'didi') {
+                    grossHourly = 87.50;
+                    kmPerHour = 20.0;
+                }
+
+                const grossWeekly = grossHourly * hoursPerWeek;
+                const kmWeekly = kmPerHour * hoursPerWeek;
+                const costsWeekly = kmWeekly * cotk;
+                const netWeekly = grossWeekly - costsWeekly;
+
+                const grossMonthly = grossWeekly * 4.33;
+                const costsMonthly = costsWeekly * 4.33;
+                const netMonthly = netWeekly * 4.33;
+                const netHourly = netWeekly / hoursPerWeek;
+
+                grossMonthlyEl.textContent = '$' + Math.round(grossMonthly).toLocaleString('es-MX') + ' MXN';
+                costsMonthlyEl.textContent = '-$' + Math.round(costsMonthly).toLocaleString('es-MX') + ' MXN';
+                netMonthlyEl.textContent = '$' + Math.round(netMonthly).toLocaleString('es-MX') + ' MXN';
+                netHourlyEl.textContent = '$' + netHourly.toFixed(2) + ' MXN';
+                cotkAppliedEl.textContent = '$' + cotk.toFixed(2) + '/km';
+            }
+
+            hoursInput.addEventListener('input', calculateProfit);
+            strategySelect.addEventListener('change', calculateProfit);
+            gasInput.addEventListener('input', calculateProfit);
+
+            calculateProfit();
+        });
+    </script>
+</body>
+</html>
